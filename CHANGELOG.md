@@ -2,6 +2,30 @@
 
 All notable releases of `kiki-flow-research`. Dates in YYYY-MM-DD.
 
+## [Unreleased] — 2026-11-15 (text withdrawals, issue #69)
+
+### Changed
+- `paper/main.tex`: the fitted pair-contraction rate λ̂ is withdrawn
+  from the running text (§λ-mono, §Free-energy decay, Discussion
+  "Potential-driven specialization"); its value is kept only in
+  `ERRATUM.md` §17, with the reasons (untested grid-artefact
+  hypothesis; fit on the coupled system only). The caveat that a trajectory fit does not
+  establish λ-monotonicity is kept. Text only, no rerun;
+  `paper/lambda_monotonicity.json` is not edited.
+- `paper/main.tex`, Discussion: the claim that a decoupled baseline
+  follows a qualitatively different trajectory is withdrawn (the
+  ablation compares final states only); section titles of §λ-mono and
+  §Free-energy decay and the status banner (now up to §17) are updated.
+  `README.md` notice extended to §17. Docstring of
+  `experiments/check_lambda_monotonicity.py` marks the script as a
+  historical diagnostic; no code change.
+- The 2026-04-22 entry below says the λ fit "supports the paper's
+  exponential-convergence claim via Conger et al. Theorem 3.4". That
+  claim was dropped from `paper/main.tex` on 2026-11-05 (`92e8edc`): in
+  arXiv:2506.22947v2, 3.4 is a remark, the main result is Theorem 3.2,
+  and a fit on three trajectories does not establish λ-monotonicity
+  (`ERRATUM.md` §17). The historical entry is kept as written.
+
 ## [Unreleased] — 2026-10-28 (certified implicit JKO step, PROPOSED)
 
 ### Fixed

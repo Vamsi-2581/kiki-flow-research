@@ -14,7 +14,7 @@
 \maketitle
 
 % Status banner added 2026-11-04 (deep review of 2026-11-01, finding B10).
-% The body below is left unchanged; ERRATUM.md is the reference record.
+% Textual withdrawals are recorded in ERRATUM.md, the reference record.
 \begin{center}
 \fbox{\parbox{0.94\linewidth}{\small
 \textbf{Superseded draft --- read ERRATUM.md first (status of 2026-11-04).}
@@ -36,7 +36,12 @@ the PI decided to recompute the specialisation sweep and the paper-scale
 run with the certified implicit step (ERRATUM~\S16), and that
 recomputation has not been run.
 Zenodo records up to \texttt{paper-v0.13-draft} (2026-10-25) predate
-ERRATUM~\S11--\S16. Do not cite the quantitative results of this draft
+ERRATUM~\S11--\S17.
+Update of 2026-11-15: the fitted pair-contraction rate is withdrawn
+from the current paper text (ERRATUM~\S17). Historical result files,
+published PDFs and tags retain their original contents; their
+preservation does not reinstate the withdrawn claim.
+Do not cite the quantitative results of this draft
 without the ERRATUM.}}
 \end{center}
 
@@ -276,7 +281,7 @@ the asymmetry ratios $\|J^{\mathrm{asym}}\|_F / \|J\|_F$ are $0.314$
 and $0.330$ respectively, isolating topology as the primary
 difference between the two conditions.
 
-\subsection{Empirical \texorpdfstring{$\lambda$}{lambda}-monotonicity}
+\subsection{\texorpdfstring{$\lambda$}{lambda}-monotonicity: theoretical condition and withdrawn empirical fit}
 \label{sec:lambda-mono}
 
 In \cite{conger2025monotone}, $\lambda$-monotonicity at rate
@@ -290,24 +295,20 @@ initial conditions satisfy
     \;\le\; -2\lambda \sum_i W_2^2(\rho_i(t), \rho_i'(t)).
   \label{eq:lambda-mono}
 \end{equation}
-We verify~\eqref{eq:lambda-mono} numerically (Section~\ref{sec:exp-lambda};
+We tested~\eqref{eq:lambda-mono} numerically (Section~\ref{sec:exp-lambda};
 script \texttt{experiments/check\_lambda\_monotonicity.py}) on three
 independent seed pairs with $h = 2\times 10^{-3}$ and
 $n_{\mathrm{inner}} = 1$, using the Sinkhorn divergence~%
 \cite{feydy2019interpolating} to cancel the entropic bias floor
-inherent to regularized $W_2^2$. We obtain
-\begin{equation}
-  \hat\lambda \;=\; 67.79 \pm 3.78,
-  \qquad \text{std/mean} = 5.6\%,
-  \label{eq:lambda-estimate}
-\end{equation}
-all three trajectories monotone-decreasing over $50$ slow
-steps~{\small\% from paper/lambda\_monotonicity.json}. This decay
-is compatible with $\lambda$-monotonicity but does not establish it:
-the trajectory inequality~\eqref{eq:lambda-mono} is a consequence of
-the condition on velocity fields, not the condition itself, and a fit
-of $\hat\lambda$ on three trajectories does not establish that
-condition, nor the contraction and uniqueness results that
+inherent to regularized $W_2^2$. The fitted contraction rate
+$\hat\lambda$ is withdrawn (\texttt{ERRATUM.md}~\S17): its grid
+dependence is untested, and it was fitted on the coupled system only. Even
+taken at face value, such a fit would not establish
+$\lambda$-monotonicity: the trajectory
+inequality~\eqref{eq:lambda-mono} is a consequence of the condition
+on velocity fields, not the condition itself, and a fit of
+$\hat\lambda$ on three trajectories establishes neither that
+condition nor the contraction and uniqueness results that
 \cite{conger2025monotone} derive from it.
 
 \subsection{Baddeley phono loop and multi-scale dynamics}
@@ -619,7 +620,7 @@ the canonical operating point.
   \label{fig:coupling-modes}
 \end{figure}
 
-\subsection{Free-energy decay and empirical contraction rate}
+\subsection{Free-energy decay and withdrawn pair-contraction fit}
 \label{sec:exp-lambda}
 
 Figure~\ref{fig:fdecay} plots $F[\rho^\tau]$ along seed~0's
@@ -634,16 +635,10 @@ $\{1042, 1043, 1044\}$), $50$ slow steps each at
 $h = 2 \times 10^{-3}$, $n_{\mathrm{inner}} = 1$, fitting
 $\log d(t) = \log d(0) - 2 \hat\lambda \cdot t$ on the Sinkhorn
 divergence $d(t) = \sum_i S_\varepsilon(\rho_i(t), \rho_i'(t))$. The
-fit yields
-\begin{equation*}
-  \hat\lambda \;=\; 67.79 \pm 3.78
-  \qquad (\sigma / \bar{\hat\lambda} = 5.6\%),
-\end{equation*}
-with all three trajectories monotone-decreasing over the full
-$50$~steps~{\small\% from paper/lambda\_monotonicity.json}. As
-discussed in Section~\ref{sec:lambda-mono}, this trajectory fit is
-compatible with, but does not establish, $\lambda$-monotonicity in
-the sense of
+fitted rate is withdrawn (\texttt{ERRATUM.md}~\S17: grid dependence
+untested, coupled system only). As discussed in
+Section~\ref{sec:lambda-mono}, such a trajectory fit could not by
+itself establish $\lambda$-monotonicity in the sense of
 Conger--Hoffmann--Mazumdar--Ratliff~\cite{conger2025monotone}.
 
 \begin{figure}[h]
@@ -920,19 +915,17 @@ learned projection; its analysis is deferred to future work.
 ablation of \S\ref{sec:coupling-ablation} shows that at the canonical
 operating point the five modes span under $0.007$ bits of mean
 entropy, with \textsc{separable} slightly below \textsc{dell-full}.
-This does not render the Levelt--Baddeley coupling cosmetic: the
-topology carries the causal production direction of the dynamics
-rather than the stationary entropy, and a decoupled baseline reaches
-the same final entropy only along a qualitatively different
-trajectory. The fitted pair-contraction rate $\hat\lambda \approx
-67.8$ of \S\ref{sec:lambda-mono} quantifies the transient contraction
-that the full coupling provides; a fully decoupled system matches
-the stationary statistics but not the dynamic ones. The architectural
-question ``what does the hierarchy do?'' therefore shifts from ``it
-produces specialization'' to ``it sets the transient geometry along
-which specialization emerges'', a distinction we argue is
-empirically meaningful and deserves its own quantitative treatment
-separate from the steady-state reporting in \S\ref{sec:exp}.
+The ablation establishes nearly equal final entropies across
+coupling modes. Whether coupling changes transient trajectories
+remains an open question: the withdrawn pair-contraction fit
+(\texttt{ERRATUM.md}~\S17) used only the coupled system and provides
+no coupled-versus-decoupled comparison. The architectural question
+``what does the hierarchy do?'' is therefore left open: these data
+do not show that it produces specialization, nor that it sets the
+transient geometry along which specialization emerges; telling these
+apart would require a measured comparison of coupled and decoupled
+trajectories, separate from the steady-state reporting in
+\S\ref{sec:exp}.
 See also \cite{agliari2026networks,agliari2026modularrbm}, where
 specialisation of modules arises from an imposed competitive
 (anti-Hebbian) inter-module coupling.
@@ -979,16 +972,16 @@ cells:
 \end{enumerate}
 Mean $\Delta \hat H$ across the $18$ \textsc{*-full} cells is
 $+4.7 \times 10^{-3}$ bits (min $+4 \times 10^{-4}$, max
-$+8.8 \times 10^{-3}$). The default numerical results reported
-in \S\ref{sec:coupling-ablation} and \S\ref{sec:exp-lambda}
-correspond to the non-splitting path for reproducibility against
-the committed
-\texttt{paper/hyperparam\_sweep\_coupling\_modes.json}; the
-splitting-active companion file is provided as a parallel artifact.
-Propagating the splitting into the $\hat\lambda$ measurement of
-\S\ref{sec:lambda-mono} (predicted to shift $\hat\lambda$
-modestly downward as the drift slows transient contraction) is
-left for a follow-up run. The correct discretization
+$+8.8 \times 10^{-3}$). The coupling-ablation results of
+\S\ref{sec:coupling-ablation} use the non-splitting path and are
+archived in \texttt{paper/hyperparam\_sweep\_coupling\_modes.json};
+the splitting-active companion file is provided as a parallel
+artifact. The withdrawn pair-contraction fit also used no
+asymmetric-drift splitting; its record is discussed in
+\texttt{ERRATUM.md}~\S17.
+The $\hat\lambda$ measurement of \S\ref{sec:lambda-mono} is
+withdrawn (\texttt{ERRATUM.md}~\S17); no propagation of the
+splitting into it is planned. The correct discretization
 (mass-preserving forward Euler vs.\ semi-Lagrangian advection vs.\
 the matrix-exponential choice prototyped here) is itself a
 numerical-analysis question left for future study.

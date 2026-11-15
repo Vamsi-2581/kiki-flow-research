@@ -941,3 +941,67 @@ the module's repository and records a SHA-256 of the tracked diff.
 `tau = 0` before each JKO step (`multiscale_loop.py`, lines 84 and 148),
 so the output `tau` is 1 after every step instead of counting steps
 (review m4); to be fixed separately.
+
+## 17. λ̂ ≈ 67.8 and Conger et al. Theorem 3.4 withdrawn (2026-11-15)
+
+**Status: PROPOSED (issue #69), text only, no rerun.** Decided by the
+PI on 2026-11-15, following the reading-lock spec of 2026-11-01
+(line 78: withdraw λ̂ = 67.8 and the reference to Theorem 3.4) and the
+hypothesis catalogue v2 (line 40). `paper/lambda_monotonicity.json` and
+`experiments/check_lambda_monotonicity.py` are not edited.
+
+- **The measurement itself is withdrawn from the running text**, not
+  only its interpretation. The fitted rate λ̂ = 67.79 ± 3.78
+  (std/mean 5.6 %, 3 seed pairs, h = 0.002, n_inner = 1, 50 slow steps,
+  Sinkhorn ε = 0.01, `paper/lambda_monotonicity.json`) no longer
+  appears in `paper/main.tex` (§λ-mono, §Free-energy decay and
+  empirical contraction rate); both passages point here. This section
+  is the only place in the current text where the value is given.
+- `paper/main.tex`, Discussion ("Potential-driven specialization"): the
+  sentence "the fitted pair-contraction rate λ̂ ≈ 67.8 of §λ-mono
+  quantifies the transient contraction that the full coupling provides;
+  a fully decoupled system matches the stationary statistics but not the
+  dynamic ones" is replaced by a statement that the fit is withdrawn,
+  was run on the coupled system only (`coupling_variant = "dell"`) and
+  has no decoupled counterpart. After review, the surrounding claims
+  that "a decoupled baseline reaches the same final entropy only along a
+  qualitatively different trajectory" and that the hierarchy "sets the
+  transient geometry along which specialization emerges" are withdrawn
+  too: the coupling-modes ablation (`paper/coupling_modes_summary.md`,
+  `scripts/hyperparam_sweep_coupling_modes.py`) compares final states
+  only. The question is now stated as open.
+- Conger, Hoffmann, Mazumdar, Ratliff (arXiv:2506.22947) "Theorem 3.4"
+  was removed from `paper/main.tex` on 2026-11-05 (`92e8edc`); it was
+  never recorded here. `CHANGELOG.md` (entry of 2026-04-22) still cites
+  it and the value; that entry is historical and is not rewritten.
+
+Root cause. (a) Grid artefact, an untested hypothesis (catalogue v2,
+line 40): the fit used a single grid of 64 points, with no resolution
+study, and 9, 9 and 8 fitted points out of 50 steps for the three
+pairs (`paper/lambda_monotonicity.json`, lines 18, 28, 38; mask
+d(t) ≥ 10 % of d(0)). The value is withdrawn, not corrected, and no
+rerun has been made. The archived estimate describes an initial-window
+fit on three coupled-system pairs; it does not isolate a coupling
+effect or establish a global contraction rate. (b) Interpretation: λ̂ was fitted on the coupled
+system only, so it cannot measure what the coupling adds. (c)
+Numbering: in arXiv:2506.22947v2, 3.4 is a remark (p. 11); the main
+result is Theorem 3.2 (p. 10), and λ-monotonicity is a condition on the
+velocity fields for every pair of measures (Definition 1.1, p. 2),
+which a fit on three trajectories does not establish (`92e8edc`). (d)
+Numerical scheme. The withdrawn fit was obtained with the fast
+projected Euclidean step (`apply_w2_prox=False`,
+`experiments/check_lambda_monotonicity.py:308`, hence `legacy_split`,
+`kiki_flow_core/master_equation.py:211`, §12), with h = 0.002, not with
+an entropic JKO step of F (§13) nor with the certified implicit step
+(§16); its Sinkhorn ε regularises the distance diagnostic only. The
+NH-20 reading note (`docs/prereg/nh20/reading-note.md`, PR #61)
+separately explains why Carlier, Duval, Peyré, Schmitzer Th. 3.16
+(arXiv:1512.02783, p. 17) does not cover the laboratory's entropic JKO
+implementation (l. 142-144; the ratio 18.4 at ε = 0.01, h = 0.05,
+l. 111, concerns the historical rigorous path, not this fit). No
+justification transferring this fitted discrete rate to the
+continuous Wasserstein flow is established in this repository;
+"Strang with JKO sub-steps stays first order" remains a prediction
+(l. 362-364).
+
+The published PDFs and tags are unchanged.
